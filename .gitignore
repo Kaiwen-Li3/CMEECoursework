@@ -1,4 +1,8 @@
 *~ 
 *.tmp
 *~ 
-*Sandbox
+*sandbox
+*~
+Week1/results/*
+
+
