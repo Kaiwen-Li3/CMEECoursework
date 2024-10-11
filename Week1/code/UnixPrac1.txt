@@ -1,27 +1,34 @@
-#count how many lines there are in each file
-#print everything starting from the second line for the E. coli genome
-#count the sequence length of this genome
-#count the matches of a particular sequence "ATGC" in the genome of E. coli
-#Compute the A+T/G+C ratio
+
 
 #==========================================
+#1
 
-wc data/*.fasta
+wc -w ../data/*.fasta
 #wordcount of any .fasta files in data
 
 #==========================================
+#2
 
-tail -n +3 data/E.coli.fasta 
+tail -n +3 ../data/E.coli.fasta 
 #tail, skipping first (3-1) lines of e.coli.fasta
 
 #==========================================
+#3
 
-wc -m data/E.coli.fasta
+wc -m ../data/E.coli.fasta
 #wordcount, printing character counts
 
 #==========================================
+#4
 
-grep -c ACTG data/E.coli.fasta
-#grep finds any ACTGs, -c returns a count
+grep -v ">" ../data/E.coli.fasta | tr -d "\n" | grep -o "ATCG" | wc -l 
+# -v ">" removes the first line
+# tr -d "\n" removes new lines
+#grep -o finds occurrences of "ATCG"
 
-#==========================
+#==========================================
+#5
+
+echo "scale=3; ($(grep -v ">" ../data/E.coli.fasta | tr -d "\n" | grep -o -E "A|T" | wc -l)) / ($(grep -v ">" ../data/E.coli.fasta | tr -d "\n" | grep -o -E "C|G" | wc -l))" | bc
+#count of A or T divided by count of C or G, to 3dp
+

@@ -15,7 +15,7 @@ FILENAME="${BASEFILE_EXT%.*}" #removes the extension
 #====================================================================================================================
 
 
-echo "Creating a coma delimited version of $BASEFILE_EXT..."
+echo "Creating a comma delimited version of $BASEFILE_EXT..."
 cat $1 | tr -s "\t" "," > ../results/$FILENAME.csv #creates the csv version of the file
 echo "Done!"
 exit
