@@ -5,9 +5,12 @@
 # Arguments: none
 # Date: Oct 2024
 
-
-for f in *.tif; 
-    do  
-        echo "Converting $f"; 
-        convert "$f"  "$(basename "$f" .tif).png"; 
-    done
+if ls *.tif 1> /dev/null 2>&1; then
+    for f in *.tif; 
+        do  
+            echo "Converting $f"; 
+            convert "$f"  "$(basename "$f" .tif).png"; 
+        done
+else
+    echo "No .tif files found."
+fi

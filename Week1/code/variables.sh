@@ -27,5 +27,5 @@ echo
 echo 'you entered' $a 'and' $b '; Their sum is:'
 
 ## Assigned Variables; Command substitution
-MY_SUM=$(expr $a + $b)
+MY_SUM=$(($a + $b))
 echo $MY_SUM

@@ -1,3 +1,8 @@
+"""
+This script takes a dictionary and dumps it into another dictionary
+"""
+
+
 
 my_dictionary = {"a key": 10, "another key": 11}
 import pickle

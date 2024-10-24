@@ -50,13 +50,19 @@ def find_all_primes(x=22):
 
 def main(argv):
     # sys.exit("don't want to do this right now!")
+    print(even_or_odd(0))
+    print(even_or_odd(-3))
     print(even_or_odd(22))
     print(even_or_odd(33))
     print(largest_divisor_five(120))
     print(largest_divisor_five(121))
     print(is_prime(60))
     print(is_prime(59))
-    print(find_all_primes(100))
+    print(is_prime(0))
+    print(is_prime(-10))
+    print(find_all_primes(12))
+    print(find_all_primes(1))
+    print(find_all_primes(2))
     return 0
 
 if (__name__ == "__main__"):

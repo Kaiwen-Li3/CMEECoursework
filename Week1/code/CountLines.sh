@@ -5,7 +5,7 @@
 # Arguments: none
 # Date: Oct 2024
 
-NumLines=`wc -l < $1`
+NumLines=$(wc -l < "$1")
 # < redirects contents of the file to the standard input of the command wc -l
 echo "The file $1 has $NumLines line(s)"
 exit

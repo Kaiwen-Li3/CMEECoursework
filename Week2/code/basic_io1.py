@@ -1,3 +1,7 @@
+"""
+This script goes through a text file and prints the length of each line.
+"""
+
 
 f = open('../sandbox/test.txt', 'r')
 

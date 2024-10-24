@@ -11,7 +11,8 @@
 [ ! -f $1 ] && echo "Error: $1 is not a valid file" && exit 1 #check for 1 existing
 [ ! -f $2 ] && echo "Error: $2 is not a valid file" && exit 1 #check for 2 existing
 
-[ ! -d "$(dirname "$3")" ] && echo "Error: $3 is not a valid directory" && exit 1 #check if 3 is a valid directory (will not check if the created file name exists)
+[ ! -d "$(dirname "$3")" ] && echo "Error: $3 is not a valid directory" && exit 1 #check if 3 is a valid directory
+[ -f $3 ] && echo "Error: $3 already exists" && exit 1
 
 [[ "$3" != *.txt ]] && echo "Error: $3 does not end in .txt" && exit 1 #check 3 ends in .txt
 

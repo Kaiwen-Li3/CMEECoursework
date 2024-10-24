@@ -13,24 +13,27 @@ import sys
 #All the foo_x functions should take arguments from the user 
 
 #==================================================================================================
-#x^0.5
+
 
 def foo_1(x=2):
+    """returns x ^0.5 """
     return x ** 0.5
 
 #==================================================================================================
-#if x is more than y, return x, else return y
+
 
 def foo_2(x, y):
+    """if x is more than y, return x, else return y"""
     if x > y:
         return x
     return y
 
 #==================================================================================================
-#if x is more than y, they switch values
-#if y is more than z, they switch values
+
 
 def foo_3(x=5, y=4, z=3):
+    """if x is more than y, they switch values
+if y is more than z, they switch values"""
     if x > y:
         tmp = y
         y = x
@@ -42,32 +45,36 @@ def foo_3(x=5, y=4, z=3):
     return [x, y, z]
 
 #==================================================================================================
-#1*2*3*4...*x = result
+
 
 def foo_4(x=5):
+    """1*2*3*4...*x = result"""
     result = 1
     for i in range(1, x + 1):
         result = result * i
     return result
 
 #==================================================================================================
-#recursive function that calculates factorial of x
+
 #1*2*3*4...*x = result
 
 def foo_5(x=5):
+    """recursive function that calculates factorial of x"""
     if x == 1:
         return 1
     return x * foo_5(x - 1)
      
 #==================================================================================================
-#calculates factorial but with no if statements
+
 
 def foo_6(x): 
+    """calculates factorial but with no if statements"""
     facto = 1
     while x >= 1:
         facto = facto * x
         x = x - 1
     return facto
+
 
 #==================================================================================================
 
