@@ -42,5 +42,6 @@ taxa_dic = {order: [species for species, o in taxa if o == order] for _, order i
 #o == order ensures only taxa whose order matches the order used as the key in the dictionary
 # for _, order in taxa: for each tuple in taxa, the second element (order) becomes a key in the dictionary
 
+
 for order, species_list in taxa_dic.items():
     print(f"{order}: {', '.join(species_list)}")
