@@ -8,3 +8,4 @@ SomeOperation <- function(v) {
 
 M <- matrix(rnorm(100), 10, 10)
 print (apply(M, 1, SomeOperation))
+

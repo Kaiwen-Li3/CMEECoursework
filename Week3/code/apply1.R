@@ -1,3 +1,7 @@
+#Create a 10x10 matrix filled with 100 random numbers
+#Calculate the mean / variance of each row, and mean of each column
+
+
 M <- matrix(rnorm(100), 10, 10)
 
 RowMeans <- apply(M, 1, mean)

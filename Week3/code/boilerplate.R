@@ -1,3 +1,5 @@
+#Takes two arguments and returns their classes
+
 MyFunction <- function(Arg1, Arg2) {
 
     print(paste("Argument,", as.character(Arg1), "is a", class(Arg1)))
