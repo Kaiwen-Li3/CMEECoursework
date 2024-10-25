@@ -58,6 +58,11 @@ print("After calling a_function, outside the function, the value of _a_local is 
 #return_directive
 
 def modify_list_1(some_list):
+    """Demonstrates reassigning a variable inside a function does not change the original list
+    args:
+        some_list (list)"""
+    
+
     print('got', some_list)
     some_list = [1,2,3,4]
     print('set to', some_list)
@@ -70,6 +75,11 @@ print('after, my_list = ', my_list)
 #original list remains the same even though it's changed inside the function
 
 def modify_list_2(some_list):
+    """Demonstrates you can change the variable by using the return function
+    args:
+        some_list(list)"""
+
+    
     print('got', some_list)
     some_list = [1,2,3,4]
     print('set to', some_list)

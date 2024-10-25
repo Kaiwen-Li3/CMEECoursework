@@ -6,6 +6,19 @@ import sys
 #orders sequences
 
 def orderseqs(seq1,seq2):
+    """Takes two sequences and orders them, shorter becoming s1, longer becoming s2
+    
+    args:
+        seq1 (str)
+        seq2 (str)
+        
+    returns:
+        s1 (str): shorter sequence
+        s2 (str): longer sequence
+        l1 (int): length of s1
+        l2 (int): length of s2"""
+    
+
     l1 = len(seq1)
     l2 = len(seq2)
     if l1 >= l2:
@@ -22,6 +35,24 @@ def orderseqs(seq1,seq2):
 #calculate_score: 
 
 def calculate_score(s1, s2, l1, l2, startpoint):
+    """
+    Calculate the alignment score of the two sequences, and provide visual representations
+    
+    args:
+        s1 (str): shorter sequence
+        s2 (str): longer sequence
+        l1 (int): length of s1
+        l2 (int): length of s2
+        startpoint (int): the starting index for the alignments
+        
+    return:
+        aligned_matched (str): a string representing where s2 / s1 match
+        aligned_s2 (str): the longer sequence
+        aligned_s1 (str): the shorter sequence, plus startpoint leading dots
+        score (int): the number of matching bases in this alignment"""
+
+
+
     matched = "" # to hold string displaying alignements
     score = 0
     for i in range(l2):
@@ -47,6 +78,15 @@ def calculate_score(s1, s2, l1, l2, startpoint):
 #main
 
 def main(argv): 
+    """
+    Main function to read sequence data, calculate alignments and output results
+    
+    args:
+        argv (list): list of command-line arguments
+        
+    outputs:
+        writes best alignment result to align_seqs_result.csv"""
+
     seqs = []
     f = open('../data/align_seqs_data.csv','r')
     g = open('../results/align_seqs_result.csv','w',newline='')
