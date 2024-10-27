@@ -1,0 +1,1244 @@
+Starting testing for Kaiwen, Week3
+
+Note that: 
+(1) Major sections begin with a double "====" line 
+(2) Subsections begin with a single "====" line 
+(3) Code output or text file content are printed within single "*****" lines 
+
+======================================================================
+======================================================================
+Your Git repo size this week is about 3.41 MiB on disk 
+
+PART 1: Checking project workflow...
+
+Found the following directories in parent directory: CMEE-Group-2-Coursework, Week1, Week3, .git, Week4, Week2, Feedback
+
+Found the following files in parent directory: .gitignore, .gitmodules, README.md
+
+Checking for key files in parent directory...
+
+Found .gitignore in parent directory, great! 
+
+Printing contents of .gitignore:
+
+**********************************************************************
+*~ 
+*.tmp
+*sandbox
+Week1/results/*
+
+
+Week2/results/*
+
+
+Week3/results/!.gitkeep
+
+Week4/results/*
+
+
+**********************************************************************
+
+Found README in parent directory, named: README.md
+
+Printing contents of README.md:
+
+**********************************************************************
+
+CMEE Coursework
+
+
+My CMEE Coursework Repository, including my code, data and results folder for each week
+Languages: English
+Dependencies:
+ipdb, csv, sys libraries
+Author name: Kaiwen Li
+Author email: kaiwen.li21@imperial.ac.uk
+
+**********************************************************************
+
+======================================================================
+Looking for the weekly directories...
+
+Found 4 weekly directories: Week1, Week2, Week3, Week4
+
+The Week3 directory will be tested 
+
+======================================================================
+======================================================================
+PART 2: Checking weekly code and workflow...
+
+======================================================================
+Testing WEEK3...
+
+Found the following directories: results, data, code
+
+Found the following files: 
+
+Checking for readme file in weekly directory...
+
+README file missing!
+
+Results directory is empty - good! 
+
+Found 14 code files: functionswithconditionals.R, datavisualisation.R, sample.R, iris.R, vectorize1.R, debugging.R, apply1.R, datamanagement.R, ggplot.R, boilerplate.R, apply2.R, errorsanddebugging.R, browse.R, preallocate.R
+
+======================================================================
+Testing script/code files...
+
+======================================================================
+Inspecting script file functionswithconditionals.R...
+
+File contents are:
+
+**********************************************************************
+is.even <- function(n=2) {
+    if (n %% 2 == 0) {
+        return(paste(n,' is even!'))
+    } else paste {
+        return(paste(n, 'is odd!'))
+    }
+}
+is.even(6)
+
+
+is.power2 <- function(n=2) {
+        if (log2(n) %% 1==0) {
+            return(paste(n, ' is a power of 2!'))
+        } else {
+        return(paste(n, ' is not a power of 2!'))
+        }
+    }
+
+is.power2(4)
+
+
+# Checks if a number is prime
+is.prime <- function(n) {
+  if (n==0) {
+    return(paste(n,'is a zero!'))
+  } else if (n==1) {
+    return(paste(n,'is just a unit!'))
+  }
+    
+  ints <- 2:(n-1)
+  
+  if (all(n%%ints!=0)) {
+    return(paste(n,'is a prime!'))
+  } else {
+  return(paste(n,'is a composite!'))
+    }
+}
+
+is.prime(3)
+**********************************************************************
+
+Testing functionswithconditionals.R...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+
+**********************************************************************
+
+Encountered error (or warning):
+
+***IGNORE IF THIS ERROR IS EXPECTED AS PART OF AN IN-CLASS EXERCISE***
+
+Error: unexpected '{' in:
+"        return(paste(n,' is even!'))
+    } else paste {"
+Execution halted
+
+======================================================================
+Inspecting script file datavisualisation.R...
+
+File contents are:
+
+**********************************************************************
+MyDF <- read.csv("../data/EcolArchives-E089-51-D1.csv")
+dim(MyDF)
+
+
+require(tidyverse)
+MyDF$Type.of.feeding.interaction <- as.factor(MyDF$Type.of.feeding.interaction)
+MyDF$Location <- as.factor(MyDF$Location)
+str(MyDF)
+
+plot(MyDF$Predator.mass,MyDF$Prey.mass)
+plot(log(MyDF$Predator.mass),log(MyDF$Prey.mass))
+plot(log10(MyDF$Predator.mass),log10(MyDF$Prey.mass))
+plot(log10(MyDF$Predator.mass),log10(MyDF$Prey.mass),pch=20) # Change marker
+plot(log10(MyDF$Predator.mass),log10(MyDF$Prey.mass),pch=20, xlab = "Predator Mass (g)", ylab = "Prey Mass (g)") # Add labels
+
+#histograms
+hist(MyDF$Predator.mass)
+hist(log10(MyDF$Predator.mass), xlab = "log10(Predator Mass (g))", ylab = "Count") # include labels
+hist(log10(MyDF$Predator.mass),xlab="log10(Predator Mass (g))",ylab="Count", col = "lightblue", border = "pink") # Change bar and borders colors 
+
+
+#subplots
+par(mfcol=c(2,1))
+par(mfg = c(1,1))
+hist(log10(MyDF$Predator.mass),
+    xlab = "log10(Predator Mass (g))", ylab = "Count", col = "lightblue", border = "pink", 
+    main = 'Predator') 
+par(mfg = c(2,1))
+hist(log10(MyDF$Prey.mass), xlab="log10(Prey Mass (g))",ylab="Count", col = "lightgreen", border = "pink", main = 'prey')
+
+
+hist(log10(MyDF$Predator.mass), # Predator histogram
+    xlab="log10(Body Mass (g))", ylab="Count", 
+    col = rgb(1, 0, 0, 0.5), # Note 'rgb', fourth value is transparency
+    main = "Predator-prey size Overlap") 
+hist(log10(MyDF$Prey.mass), col = rgb(0, 0, 1, 0.5), add = T) # add = T overlaps
+legend('topleft',c('Predators','Prey'),   # Add legend
+    fill=c(rgb(1, 0, 0, 0.5), rgb(0, 0, 1, 0.5))) # Define legend colors
+
+
+#boxplots
+boxplot(log10(MyDF$Predator.mass), xlab = "Location", ylab = "log10(Predator Mass)", main = "Predator mass")
+boxplot(log(MyDF$Predator.mass) ~ MyDF$Location, # Why the tilde?
+    xlab = "Location", ylab = "Predator Mass",
+    main = "Predator mass by location")
+
+
+boxplot(log(MyDF$Predator.mass) ~ MyDF$Type.of.feeding.interaction,
+    xlab = "Location", ylab = "Predator Mass",
+    main = "Predator mass by feeding interaction type")
+
+
+#combiningplots
+ par(fig=c(0,0.8,0,0.8)) # specify figure size as proportion
+ plot(log(MyDF$Predator.mass),log(MyDF$Prey.mass), xlab = "Predator Mass (g)", ylab = "Prey Mass (g)") # Add labels
+ par(fig=c(0,0.8,0.4,1), new=TRUE)
+ boxplot(log(MyDF$Predator.mass), horizontal=TRUE, axes=FALSE)
+ par(fig=c(0.55,1,0,0.8),new=TRUE)
+ boxplot(log(MyDF$Prey.mass), axes=FALSE)
+ mtext("Fancy Predator-prey scatterplot", side=3, outer=TRUE, line=-3)
+
+
+ pdf("../results/Pred_Prey_Overlay.pdf", # Open blank pdf page using a relative path
+    11.7, 8.3) # These numbers are page dimensions in inches
+hist(log(MyDF$Predator.mass), # Plot predator histogram (note 'rgb')
+    xlab="Body Mass (g)", ylab="Count", col = rgb(1, 0, 0, 0.5), main = "Predator-Prey Size Overlap") 
+hist(log(MyDF$Prey.mass), # Plot prey weights
+    col = rgb(0, 0, 1, 0.5), 
+    add = T)  # Add to same plot = TRUE
+legend('topleft',c('Predators','Prey'), # Add legend
+    fill=c(rgb(1, 0, 0, 0.5), rgb(0, 0, 1, 0.5))) 
+graphics.off(); #you can also use dev.off() 
+**********************************************************************
+
+Testing datavisualisation.R...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+[1] 34931    15
+'data.frame':	34931 obs. of  15 variables:
+ $ Record.number              : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ In.refID                   : chr  "ATSH063" "ATSH080" "ATSH089" "ATSH143" ...
+ $ IndividualID               : chr  "1" "2" "3" "4" ...
+ $ Predator                   : chr  "Rhizoprionodon terraenovae" "Rhizoprionodon terraenovae" "Rhizoprionodon terraenovae" "Rhizoprionodon terraenovae" ...
+ $ Predator.common.name       : chr  "Atlantic sharpnose shark" "Atlantic sharpnose s
+**********************************************************************
+
+Encountered error (or warning):
+
+***IGNORE IF THIS ERROR IS EXPECTED AS PART OF AN IN-CLASS EXERCISE***
+
+Loading required package: tidyverse
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+
+======================================================================
+Inspecting script file sample.R...
+
+File contents are:
+
+**********************************************************************
+#take sample of size n from popn and return its mean
+myexperiment <- function(popn,n) {
+    pop_sample <- sample(popn, n, replace = FALSE)
+    return(mean(pop_sample))
+}
+
+#calculate means using a FOR loop on a vector without preallocation
+loopy_sample1 <- function(popn, n, num) {
+    result1 <- vector()
+    for(i in 1:num) {
+        result1 <- c(result1, myexperiment(popn, n))
+    }
+    return(result1)
+}
+
+#run num iterations of the experiment using a for loop on a vector with preallocation
+loopy_sample2 <- function(popn, n, num) {
+    result2 <- vector(,num) #Preallocate expected size
+    for(i in 1:num) {
+        result2[i] <- myexperiment(popn, n)
+    }
+    return(result2)
+}
+
+
+
+
+#run num iterations of the experiment using a for loop on a list with preallocation
+loopy_sample3 <- function(popn, n, num) {
+    result3 <- vector("list", num)
+    for(i in 1:num) {
+        result3[[i]] <- myexperiment(popn, n)
+    }
+    return(result3)
+}
+
+
+#run num iterations of the experiment using vectorisation with lapply
+lapply_sample <- function(popn, n, num) {
+    result4 <- lapply(1:num, function(i) myexperiment(popn, n))
+    return(result4)
+}
+
+#run num iterations of the experiment using vectorisation with sapply
+sapply_sample <- function(popn, n, num) {
+    result5 <- sapply(1:num, function(i) myexperiment(popn, n))
+    return(result5)
+}
+
+set.seed(12345)
+popn <- rnorm(10000)
+hist(popn)
+
+n <- 100
+num <- 10000
+print("Using loops without preallocation on a vector took:" )
+print(system.time(loopy_sample1(popn, n, num)))
+
+print("Using loops with preallocation on a vector took:" )
+print(system.time(loopy_sample2(popn, n, num)))
+
+print("Using loops with preallocation on a list took:" )
+print(system.time(loopy_sample3(popn, n, num)))
+
+print("Using the vectorized sapply function (on a list) took:" )
+print(system.time(sapply_sample(popn, n, num)))
+
+print("Using the vectorized lapply function (on a list) took:" )
+print(system.time(lapply_sample(popn, n, num)))
+
+
+
+
+
+**********************************************************************
+
+Testing sample.R...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+[1] "Using loops without preallocation on a vector took:"
+   user  system elapsed 
+  0.173   0.015   0.188 
+[1] "Using loops with preallocation on a vector took:"
+   user  system elapsed 
+  0.117   0.000   0.117 
+[1] "Using loops with preallocation on a list took:"
+   user  system elapsed 
+  0.117   0.000   0.117 
+[1] "Using the vectorized sapply function (on a list) took:"
+   user  system elapsed 
+  0.117   0.000   0.117 
+[1] "Using the vectorized lapply function (on a list) took:"
+   user  syst
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.83633s
+
+======================================================================
+Inspecting script file iris.R...
+
+File contents are:
+
+**********************************************************************
+#tapply allows you to apply a function to subsets of a vector in a dataframe
+
+x <- 1:20
+x
+
+y <- factor(rep(letters[1:5], each = 4))
+y
+
+tapply(x, y, sum)
+#adds up the values in x within each subgroup defined by y
+#e.g. 1 + 2 + 3 + 4 + 5, 6 + 7 + 8 + 9, etc.
+
+#You can also do something similar to tapply with the by function
+
+attach(iris)
+iris
+
+by(iris[,1:2], iris$Species, colMeans)
+#Finds the mean sepal.length and sepal.width based on species
+by(iris[,1:2], iris$Petal.Width, colMeans)
+#Finds the mean sepal.length and sepal.width based on petal.width
+
+
+#Replicate can avoid a loop for function that typically involves random number generation
+replicate(10, runif(5))
+#generates 10 sets (columns) of 5 uniformly distributed random numbers
+
+
+**********************************************************************
+
+Testing iris.R...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+ [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20
+ [1] a a a a b b b b c c c c d d d d e e e e
+Levels: a b c d e
+ a  b  c  d  e 
+10 26 42 58 74 
+    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+1            5.1         3.5          1.4         0.2     setosa
+2            4.9         3.0          1.4         0.2     setosa
+3            4.7         3.2          1.3         0.2     setosa
+4            4.6         3.1          1.5         0.2     setosa
+5            5.0
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.10159s
+
+======================================================================
+Inspecting script file vectorize1.R...
+
+File contents are:
+
+**********************************************************************
+M <- matrix(runif(1000000),1000,1000)
+
+SumAllElements <- function(M) {
+    Dimensions <- dim(M)
+    Tot <- 0
+    for (i in 1:Dimensions[1]) {
+        for (j in 1:Dimensions[2]) {
+            Tot <- Tot + M[i,j]
+        }
+    }
+    return (Tot)
+}
+
+print("Using loops, the time taken is:")
+print(system.time(SumAllElements(M)))
+
+print("Using the in-built vectorized function, the time taken is:")
+print(system.time(sum(M)))
+
+
+
+#Preallocation
+NoPreallocFun <- function(x) {
+    a <- vector() # empty vector
+    for (i in 1:x) {
+        a <- c(a, i) # concatenate
+        print(a)
+        print(object.size(a))
+    }
+}
+
+system.time(NoPreallocFun(10))
+
+
+
+PreallocFun <- function(x) {
+    a <- rep(NA, x) # pre-allocated vector
+    for (i in 1:x) {
+        a[i] <- i # assign
+        print(a)
+        print(object.size(a))
+    }
+}
+
+system.time(PreallocFun(10))
+
+**********************************************************************
+
+Testing vectorize1.R...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+[1] "Using loops, the time taken is:"
+   user  system elapsed 
+  0.031   0.000   0.031 
+[1] "Using the in-built vectorized function, the time taken is:"
+   user  system elapsed 
+  0.001   0.000   0.001 
+[1] 1
+56 bytes
+[1] 1 2
+56 bytes
+[1] 1 2 3
+64 bytes
+[1] 1 2 3 4
+64 bytes
+[1] 1 2 3 4 5
+80 bytes
+[1] 1 2 3 4 5 6
+80 bytes
+[1] 1 2 3 4 5 6 7
+80 bytes
+[1] 1 2 3 4 5 6 7 8
+80 bytes
+[1] 1 2 3 4 5 6 7 8 9
+96 bytes
+ [1]  1  2  3  4  5  6  7  8  9 10
+96 bytes
+   user  system elapsed 
+  0.003   0.000   0.00
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.18231s
+
+======================================================================
+Inspecting script file debugging.R...
+
+File contents are:
+
+**********************************************************************
+    doit <- function(x) {
+    #If the sample is more than 30, take the mean, otherwise return an error
+        temp_x <- sample(x, replace = TRUE)
+        if(length(unique(temp_x)) > 30) {#only take mean if sample was sufficient
+            print(paste("Mean of this sample was:", as.character(mean(temp_x))))
+            } 
+        else {
+            stop("Couldn't calculate mean: too few unique values!")
+            }
+        }
+
+
+    set.seed(1345) # again, to get the same result for illustration
+
+    popn <- rnorm(50)
+
+    hist(popn)
+
+
+#apply doit to 15 samples
+    lapply(1:15, function(i) doit(popn))
+    result <- lapply(1:15, function(i) try(doit(popn), FALSE))
+    class(result)
+
+    result
+
+#preallocation 
+    result <- vector("list", 15) #Preallocate/Initialize
+    for(i in 1:15) {
+        result[[i]] <- try(doit(popn), FALSE)
+        }
+**********************************************************************
+
+Testing debugging.R...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+[1] "Mean of this sample was: -0.11620822588674"
+[1] "Mean of this sample was: -0.0468516755995931"
+[1] "Mean of this sample was: -0.0890228211466614"
+[1] "Mean of this sample was: -0.124229742255296"
+
+**********************************************************************
+
+Encountered error (or warning):
+
+***IGNORE IF THIS ERROR IS EXPECTED AS PART OF AN IN-CLASS EXERCISE***
+
+Error in doit(popn) : Couldn't calculate mean: too few unique values!
+Calls: lapply -> FUN -> doit
+Execution halted
+
+======================================================================
+Inspecting script file apply1.R...
+
+File contents are:
+
+**********************************************************************
+#Create a 10x10 matrix filled with 100 random numbers
+#Calculate the mean / variance of each row, and mean of each column
+
+
+M <- matrix(rnorm(100), 10, 10)
+
+RowMeans <- apply(M, 1, mean)
+# apply(X, margin, function)
+#for a matrix margin 1 indicates rows, 2 columns, c(1,2) rows and columns
+print (RowMeans)
+
+RowVars <- apply(M, 1, var)
+print(RowVars)
+
+
+ColMeans <- apply(M, 2, mean)
+**********************************************************************
+
+Testing apply1.R...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+ [1] -0.7482470  0.5155985  0.1694210  0.1182629  0.3877855 -0.6587768
+ [7] -0.1631338  0.2236736  0.2129396  0.1262907
+ [1] 0.8239055 0.6837401 0.8729199 0.8169976 1.3690140 0.6714878 0.6882789
+ [8] 1.1062880 0.3853463 0.7832065
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.08890s
+
+======================================================================
+Inspecting script file datamanagement.R...
+
+File contents are:
+
+**********************************************************************
+require(tidyverse)
+require(httpgd)
+
+
+MyData <- as.matrix(read.csv("../data/PoundHillData.csv",header = FALSE))
+class(MyData)
+
+MyMetaData <- read.csv("../data/PoundHillMetaData.csv",header = TRUE,  sep=";")
+class(MyMetaData)
+
+MyMetaData
+head(MyMetaData)
+
+MyData[MyData == ""] = 0
+
+#convert to long format (each subject will have data in multiple rows)
+
+MyData <- t(MyData)
+head(MyData)
+
+#turn column names into actual column names
+TempData <- as.data.frame(MyData[-1,],stringsAsFactors = F)
+head(TempData)
+colnames(TempData) <- MyData[1,]
+head(TempData)
+
+
+library(reshape2)
+
+MyWrangledData <- melt(TempData, id=c("Cultivation", "Block", "Plot", "Quadrat"), variable.name = "Species", value.name = "Count")
+
+
+MyWrangledData[, "Cultivation"] <- as.factor(MyWrangledData[, "Cultivation"])
+MyWrangledData[, "Block"] <- as.factor(MyWrangledData[, "Block"]) # nolint
+MyWrangledData[, "Plot"] <- as.factor(MyWrangledData[, "Plot"])
+MyWrangledData[, "Quadrat"] <- as.factor(MyWrangledData[, "Quadrat"])
+MyWrangledData[, "Count"] <- as.integer(MyWrangledData[, "Count"])
+str(MyWrangledData)
+
+install.packages("ragg")
+install.packages("tidyverse", dependencies=TRUE)
+
+#sudo apt install r-cran-tidyverse
+
+tidyverse_packages(include_self = TRUE)
+
+MyWrangledData <- dplyr::as_tibble(MyWrangledData)
+MyWrangledData
+
+glimpse(MyWrangledData)
+slice(MyWrangledData, 10:15)
+
+MyWrangledData %>% #pipe operator creates compact sequence of manipulations
+    group_by(Species) %>%
+        summarise(avg = mean(Count))
+
+plot(x,y)
+plot(y~x)
+hist(mydata)
+barplot(mydata)
+points(y1$\sim$x1)
+boxplot(y$\sim$x)
+
+MyDF <- read.csv("../data/EcolArchives-E089-51-D1.csv")
+dim(MyDF) #check the size of the data frame you loaded
+glimpse(MyDF)
+
+#change columns to factor because we want to use them as grouping variables:
+MyDF$Type.of.feeding.interaction <- as.factor(MyDF$Type.of.feeding.interaction)
+MyDF$Location <- as.factor(MyDF$Location)
+str(MyDF)
+
+
+
+plot(MyDF$Predator.mass,MyDF$Prey.mass)
+**********************************************************************
+
+Testing datamanagement.R...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+[1] "matrix" "array" 
+[1] "data.frame"
+     FieldName
+1  Cultivation
+2        Block
+3         Plot
+4      Quadrat
+5 SpeciesCount
+                                                           Description
+1  Cultivation treatments applied in three months: october, may, march
+2                                            Treatment blocks ids: a-d
+3                                 Plot ids under each treatment : 1-12
+4                  Sampling quadrats (25x50 cm each) per plot: Q1--Q6 
+5                
+**********************************************************************
+
+Encountered error (or warning):
+
+***IGNORE IF THIS ERROR IS EXPECTED AS PART OF AN IN-CLASS EXERCISE***
+
+Loading required package: tidyverse
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+Loading required package: httpgd
+Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called ‘httpgd’
+
+Attaching package: ‘reshape2’
+
+The following object is masked from ‘package:tidyr’:
+
+    smiths
+
+Installing package into ‘/home/mhasoba/R/x86_64-pc-linux-gnu-library/4.1’
+(as ‘lib’ is unspecified)
+trying URL 'https://cloud.r-project.org/src/contrib/ragg_1.3.3.tar.gz'
+Content type 'application/x-gzip' length 428945 bytes (418 KB)
+==================================================
+downloaded 418 KB
+
+* installing *source* package ‘ragg’ ...
+** package ‘ragg’ successfully unpacked and MD5 sums checked
+** using staged installation
+Package freetype2 was not found in the pkg-config search path.
+Perhaps you should add the directory containing `freetype2.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'freetype2' found
+Package libtiff-4 was not found in the pkg-config search path.
+Perhaps you should add the directory containing `libtiff-4.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'libtiff-4' found
+Package freetype2 was not found in the pkg-config search path.
+Perhaps you should add the directory containing `freetype2.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'freetype2' found
+Package libtiff-4 was not found in the pkg-config search path.
+Perhaps you should add the directory containing `libtiff-4.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'libtiff-4' found
+ERROR: configuration failed for package ‘ragg’
+* removing ‘/home/mhasoba/R/x86_64-pc-linux-gnu-library/4.1/ragg’
+
+The downloaded source packages are in
+	‘/tmp/Rtmp0NEaXO/downloaded_packages’
+Warning message:
+In install.packages("ragg") :
+  installation of package ‘ragg’ had non-zero exit status
+Installing package into ‘/home/mhasoba/R/x86_64-pc-linux-gnu-library/4.1’
+(as ‘lib’ is unspecified)
+also installing the dependencies ‘ragg’, ‘feather’
+
+trying URL 'https://cloud.r-project.org/src/contrib/ragg_1.3.3.tar.gz'
+Content type 'application/x-gzip' length 428945 bytes (418 KB)
+==================================================
+downloaded 418 KB
+
+trying URL 'https://cloud.r-project.org/src/contrib/feather_0.3.5.tar.gz'
+Content type 'application/x-gzip' length 73812 bytes (72 KB)
+==================================================
+downloaded 72 KB
+
+trying URL 'https://cloud.r-project.org/src/contrib/tidyverse_2.0.0.tar.gz'
+Content type 'application/x-gzip' length 704618 bytes (688 KB)
+==================================================
+downloaded 688 KB
+
+* installing *source* package ‘ragg’ ...
+** package ‘ragg’ successfully unpacked and MD5 sums checked
+** using staged installation
+Package freetype2 was not found in the pkg-config search path.
+Perhaps you should add the directory containing `freetype2.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'freetype2' found
+Package libtiff-4 was not found in the pkg-config search path.
+Perhaps you should add the directory containing `libtiff-4.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'libtiff-4' found
+Package freetype2 was not found in the pkg-config search path.
+Perhaps you should add the directory containing `freetype2.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'freetype2' found
+Package libtiff-4 was not found in the pkg-config search path.
+Perhaps you should add the directory containing `libtiff-4.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'libtiff-4' found
+ERROR: configuration failed for package ‘ragg’
+* removing ‘/home/mhasoba/R/x86_64-pc-linux-gnu-library/4.1/ragg’
+ERROR: failed to lock directory ‘/home/mhasoba/R/x86_64-pc-linux-gnu-library/4.1’ for modifying
+Try removing ‘/home/mhasoba/R/x86_64-pc-linux-gnu-library/4.1/00LOCK-feather’
+* installing *source* package ‘tidyverse’ ...
+** package ‘tidyverse’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (tidyverse)
+
+The downloaded source packages are in
+	‘/tmp/Rtmp0NEaXO/downloaded_packages’
+Warning messages:
+1: In install.packages("tidyverse", dependencies = TRUE) :
+  installation of package ‘ragg’ had non-zero exit status
+2: In install.packages("tidyverse", dependencies = TRUE) :
+  installation of package ‘feather’ had non-zero exit status
+Error in plot(x, y) : object 'x' not found
+Execution halted
+
+======================================================================
+Inspecting script file ggplot.R...
+
+File contents are:
+
+**********************************************************************
+require(ggplot2)
+
+#plotting nicer looking graphics with ggplot2
+MyDF <- read.csv("../data/EcolArchives-E089-51-D1.csv")
+dim(MyDF)
+
+qplot(Prey.mass, Predator.mass, data = MyDF)
+qplot(log(Prey.mass), log(Predator.mass), data = MyDF)
+qplot(log(Prey.mass), log(Predator.mass), data = MyDF, colour = Type.of.feeding.interaction)
+qplot(log(Prey.mass), log(Predator.mass), data = MyDF, colour = Type.of.feeding.interaction, asp = 1) #aspect ratios
+qplot(log(Prey.mass), log(Predator.mass), data = MyDF, shape = Type.of.feeding.interaction, asp = 1) # changing shape
+
+#manual setting
+qplot(log(Prey.mass), log(Predator.mass), 
+    data = MyDF, colour = "red") #manually set colour
+qplot(log(Prey.mass), log(Predator.mass), data = MyDF, colour = I("red")) #"real" red using identity
+
+qplot(log(Prey.mass), log(Predator.mass), data = MyDF, shape= I(3)) #crosses instead of dots
+
+
+#transparency
+qplot(log(Prey.mass), log(Predator.mass), data = MyDF, colour = Type.of.feeding.interaction, alpha = I(.5))
+
+#smoothers
+qplot(log(Prey.mass), log(Predator.mass), data = MyDF, geom = c("point", "smooth"))
+
+#linear regression
+qplot(log(Prey.mass), log(Predator.mass), data = MyDF, geom = c("point", "smooth")) + geom_smooth(method = "lm")
+
+#smoother for each type of interaction
+qplot(log(Prey.mass), log(Predator.mass), data = MyDF, geom = c("point", "smooth"), 
+      colour = Type.of.feeding.interaction) + geom_smooth(method = "lm")
+#extending lines to full range
+qplot(log(Prey.mass), log(Predator.mass), data = MyDF, geom = c("point", "smooth"),
+      colour = Type.of.feeding.interaction) + geom_smooth(method = "lm",fullrange = TRUE)
+
+#how ratio between predator:prey mass changes based on interaction
+qplot(Type.of.feeding.interaction, log(Prey.mass/Predator.mass), data = MyDF)
+
+#add jitter
+qplot(Type.of.feeding.interaction, log(Prey.mass/Predator.mass), data = MyDF, geom = "jitter")
+
+#boxplots
+qplot(Type.of.feeding.interaction, log(Prey.mass/Predator.mass), data = MyDF, geom = "boxplot")
+
+
+#histogram of predator-prey mass ratios
+qplot(log(Prey.mass/Predator.mass), data = MyDF, geom =  "histogram")
+
+#colour according to interaction
+qplot(log(Prey.mass/Predator.mass), data = MyDF, geom =  "histogram", 
+      fill = Type.of.feeding.interaction)
+#define bin widths
+qplot(log(Prey.mass/Predator.mass), data = MyDF, geom =  "histogram", 
+      fill = Type.of.feeding.interaction, binwidth = 1)
+#plot smoothed data density
+qplot(log(Prey.mass/Predator.mass), data = MyDF, geom =  "density", 
+      fill = Type.of.feeding.interaction)
+#visible overlaps
+qplot(log(Prey.mass/Predator.mass), data = MyDF, geom =  "density", 
+      fill = Type.of.feeding.interaction, 
+      alpha = I(0.5))
+#only show outlines
+qplot(log(Prey.mass/Predator.mass), data = MyDF, geom =  "density", 
+      colour = Type.of.feeding.interaction)
+
+
+#multi-faceted plots
+qplot(log(Prey.mass/Predator.mass), facets = Type.of.feeding.interaction ~., data = MyDF, geom =  "density")
+qplot(log(Prey.mass/Predator.mass), facets =  .~ Type.of.feeding.interaction, data = MyDF, geom =  "density")
+**********************************************************************
+
+Testing ggplot.R...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+[1] 34931    15
+
+**********************************************************************
+
+Encountered error (or warning):
+
+***IGNORE IF THIS ERROR IS EXPECTED AS PART OF AN IN-CLASS EXERCISE***
+
+Loading required package: ggplot2
+Warning message:
+`qplot()` was deprecated in ggplot2 3.4.0. 
+`geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
+`geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
+`geom_smooth()` using formula = 'y ~ x'
+`geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
+`geom_smooth()` using formula = 'y ~ x'
+`geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
+`geom_smooth()` using formula = 'y ~ x'
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+======================================================================
+Inspecting script file boilerplate.R...
+
+File contents are:
+
+**********************************************************************
+#Takes two arguments and returns their classes
+
+MyFunction <- function(Arg1, Arg2) {
+
+    print(paste("Argument,", as.character(Arg1), "is a", class(Arg1)))
+    print(paste("Argument,", as.character(Arg2), "is a", class(Arg2)))
+
+    return (c(Arg1, Arg2))
+
+}   
+
+MyFunction(1,2)
+MyFunction("Riki","Tiki")
+
+
+
+
+**********************************************************************
+
+Testing boilerplate.R...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+[1] "Argument, 1 is a numeric"
+[1] "Argument, 2 is a numeric"
+[1] 1 2
+[1] "Argument, Riki is a character"
+[1] "Argument, Tiki is a character"
+[1] "Riki" "Tiki"
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.10334s
+
+======================================================================
+Inspecting script file apply2.R...
+
+File contents are:
+
+**********************************************************************
+SomeOperation <- function(v) {
+    if (sum(v) > 0) {
+        return(v * 100)
+    } else {
+        return(v)
+    }
+}
+
+M <- matrix(rnorm(100), 10, 10)
+print (apply(M, 1, SomeOperation))
+
+
+**********************************************************************
+
+Testing apply2.R...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+             [,1]       [,2]       [,3]       [,4]        [,5]       [,6]
+ [1,] -124.510606  0.6151873  3.2250789 -0.3741586  0.15161863  73.095754
+ [2,]   76.651779 -0.4194152 -2.7481089 -0.5085338 -0.28958720 -31.983748
+ [3,]   44.004799 -0.1581215  0.1015034  0.4321668 -0.35533386  23.311944
+ [4,]  -30.159747 -0.6369619 -0.1979282 -1.9368682  0.07876219 211.249791
+ [5,]  186.845524  1.4571197  0.2456035  1.1696591  0.02116607 111.261243
+ [6,]  -45.710776 -0.8833015 -0.9148539 -0.3312196 -0.272
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.09976s
+
+======================================================================
+Inspecting script file errorsanddebugging.R...
+
+File contents are:
+
+**********************************************************************
+#a simple way to debug is browser()
+#it allows insertion of a breakpoint in your script and then step through your code
+
+
+Exponential <- function(N0 = 1, r = 1, generations = 10) {
+  # Runs a simulation of exponential growth
+  # Returns a vector of length generations
+  
+  N <- rep(NA, generations)    # Creates a vector of NA
+  
+  N[1] <- N0
+  for (t in 2:generations) {
+    N[t] <- N[t-1] * exp(r)
+    browser()
+  }
+  return (N)
+}
+
+plot(Exponential(), type="l", main="Exponential growth")
+#the script will be run until the first iteration of the for loop and the console will enter browser mode
+#now you can examine the variables present at that point
+
+**********************************************************************
+
+Testing errorsanddebugging.R...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+Called from: Exponential()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.12262s
+
+======================================================================
+Inspecting script file browse.R...
+
+File contents are:
+
+**********************************************************************
+Exponential <- function(N0 = 1, r = 1, generations = 10) {
+  # Runs a simulation of exponential growth
+  # Returns a vector of length generations
+  
+  N <- rep(NA, generations)    # Creates a vector of NA
+  
+  N[1] <- N0
+  for (t in 2:generations) {
+    N[t] <- N[t-1] * exp(r)
+    browser()
+  }
+  return (N)
+}
+
+plot(Exponential(), type="l", main="Exponential growth")
+**********************************************************************
+
+Testing browse.R...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+Called from: Exponential()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.12238s
+
+======================================================================
+Inspecting script file preallocate.R...
+
+File contents are:
+
+**********************************************************************
+#Preallocation
+NoPreallocFun <- function(x) {
+    a <- vector() # empty vector
+    for (i in 1:x) {
+        a <- c(a, i) # concatenate
+        print(a)
+        print(object.size(a))
+    }
+}
+
+system.time(NoPreallocFun(10000))
+
+
+
+PreallocFun <- function(x) {
+    a <- rep(NA, x) # pre-allocated vector
+    for (i in 1:x) {
+        a[i] <- i # assign
+        print(a)
+        print(object.size(a))
+    }
+}
+
+system.time(PreallocFun(10000))
+
+**********************************************************************
+
+Testing preallocate.R...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+[1] 1
+56 bytes
+[1] 1 2
+56 bytes
+[1] 1 2 3
+64 bytes
+[1] 1 2 3 4
+64 bytes
+[1] 1 2 3 4 5
+80 bytes
+[1] 1 2 3 4 5 6
+80 bytes
+[1] 1 2 3 4 5 6 7
+80 bytes
+[1] 1 2 3 4 5 6 7 8
+80 bytes
+[1] 1 2 3 4 5 6 7 8 9
+96 bytes
+ [1]  1  2  3  4  5  6  7  8  9 10
+96 bytes
+ [1]  1  2  3  4  5  6  7  8  9 10 11
+96 bytes
+ [1]  1  2  3  4  5  6  7  8  9 10 11 12
+96 bytes
+ [1]  1  2  3  4  5  6  7  8  9 10 11 12 13
+112 bytes
+ [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14
+112 bytes
+ [1]  1  2  3  4  5  6  7  8  9 10 11 12 1
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 10.53439s
+
+======================================================================
+======================================================================
+Finished running scripts
+
+Ran into 5 errors
+
+======================================================================
+======================================================================
+
+FINISHED LOGGING
+
