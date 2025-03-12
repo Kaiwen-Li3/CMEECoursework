@@ -1,7 +1,7 @@
 # Kaiwen Li Miniproject: Fitting models to empirical data
 
 ## Overview
-This miniproject is about fitting a linear model, and a nonlinear model (gompertz in this case) to empirical data; a collection of bacterial growth data from experiments across the globe
+This miniproject is about fitting a linear model, and a nonlinear model (gompertz in this case) to empirical data; a collection of bacterial growth data from experiments across the globe.
 The goal is to see which approach fits the dataset better.
 In addition, whether being in an artifical or natural medium impacts the extent to which one model fits better is also examined.
 
