@@ -1,4 +1,4 @@
-setwd("~/GitHub/CMEECoursework/MiniProject/Code")
+#setwd("~/GitHub/CMEECoursework/MiniProject/Code")
 library(ggplot2)
 
 #import dataset
