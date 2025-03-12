@@ -21,6 +21,6 @@ The miniproject uses a shell script; "run_miniproject.sh" to execute the workflo
 
 
 ## Prerequisites
-- This miniproject makes use of the following R packages:
+This miniproject makes use of the following R packages:
 - **ggplot2** for plotting data
 - **minpack.lm** for its nlslm() function
