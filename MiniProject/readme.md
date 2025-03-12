@@ -5,7 +5,7 @@ This miniproject is about fitting a linear model, and a nonlinear model (gompert
 The goal is to see which approach fits the dataset better.
 In addition, whether being in an artifical or natural medium impacts the extent to which one model fits better is also examined.
 
-##Workflow
+## Workflow
 The miniproject uses a shell script; "run_miniproject.sh" to execute the workflow in sequence
 
 1. **DataPreparation.R**
@@ -20,7 +20,7 @@ The miniproject uses a shell script; "run_miniproject.sh" to execute the workflo
 
 
 
-##Prerequisites
+## Prerequisites
 - This miniproject makes use of the following R packages:
 - **ggplot2** for plotting data
 - **minpack.lm** for its nlslm() function
