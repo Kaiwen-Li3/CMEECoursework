@@ -1,0 +1,98 @@
+R is about to run
+
+R version 4.4.1 (2024-06-14) -- "Race for Your Life"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-conda-linux-gnu
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> # Debugging messages added
+> rm(list=ls())
+> graphics.off()
+> source("kl2621_HPC_2024_main.R")
+[1] 0 0 0 0 3
+[1] 3 3 2 2 2
+[1] 1 1
+ [1] 7 4 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+> 
+> # Debugging: Check if script is running
+> print("Script started")
+[1] "Script started"
+> 
+> iter <- as.numeric(Sys.getenv("PBS_ARRAY_INDEX"))
+> #iter <- 1
+> set.seed(iter)
+> 
+> if (iter <= 25) {
++   size = 500
++ } else if (iter > 25 && iter <= 50) {
++   size = 1000
++ } else if (iter > 50 && iter <= 75) {
++   size = 2500
++ } else {
++   size = 5000
++ }
+> 
+> output <- paste("neutral_output_", iter, ".rda", sep="")
+> print(paste("Output file:", output))
+[1] "Output file: neutral_output_33.rda"
+> 
+> # Run the function and check if it completes
+> neutral_cluster_run(0.004285, size, 5, 1, size/10, 8*size, output)
+> 
+> # Check if file was created
+> if (file.exists(output)) {
++   print(paste("File created successfully:", output))
++ } else {
++   print("ERROR: File was not created!")
++ }
+[1] "File created successfully: neutral_output_33.rda"
+> 
+> ls()
+ [1] "Challenge_A"                     "Challenge_B"                    
+ [3] "Challenge_D"                     "Challenge_E"                    
+ [5] "choose_two"                      "clutch_distribution"            
+ [7] "deterministic_simulation"        "deterministic_step"             
+ [9] "email"                           "growth_matrix"                  
+[11] "init_community_max"              "init_community_min"             
+[13] "iter"                            "multinomial"                    
+[15] "name"                            "neutral_cluster_run"            
+[17] "neutral_generation"              "neutral_generation_speciation"  
+[19] "neutral_step"                    "neutral_step_speciation"        
+[21] "neutral_time_series"             "neutral_time_series_speciation" 
+[23] "octaves"                         "offspring_calc"                 
+[25] "output"                          "plot_neutral_cluster_results"   
+[27] "preferred_name"                  "process_neutral_cluster_results"
+[29] "projection_matrix"               "question_1"                     
+[31] "question_18"                     "question_2"                     
+[33] "question_22"                     "question_5"                     
+[35] "question_6"                      "question_8"                     
+[37] "random_draw"                     "reproduction_matrix"            
+[39] "size"                            "species_abundance"              
+[41] "species_richness"                "state_initialise_adult"         
+[43] "state_initialise_spread"         "stochastic_recruitment"         
+[45] "stochastic_simulation"           "stochastic_step"                
+[47] "sum_vect"                        "survival_maturation"            
+[49] "username"                        "x"                              
+> 
+R has finished running
+
+============================================
+
+        Job resource usage summary 
+
+                 Memory (GB)    NCPUs
+ Requested  :         1             1
+ Used       :         0 (peak)   0.94 (ave)
+
+============================================

@@ -1,0 +1,192 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "ea5ebd38-5cb3-451e-b30e-fbe219f098fc",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/png": "iVBORw0KGgoAAAANSUhEUgAAAEgAAAAaCAYAAAAUqxq7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAADRklEQVRYCe2Y0VEbMRCGDyYFeFKC04GJKwh0QJIKwB3g4cl+y5AOIBUkoQOTCiB0YEog14Hzf2dJs3c++3QhyMmZnVmvtNJpd//blXTeWywW2a7TdDrtCYNzh0PfyRPp81e7Do6L/0JgjDwWal+q/VP8Zt8rd1yeCpRDg8GF2n3pBi8ALVEhe+4MQKG597IHBSxCQ5lDBh1LrpaYlH6TCg/87402MWnuAHDEB8RdKjENnknHhK4R+wmxbSQHJNlzoHbO5FBiUoDaUHLMQNdIcQFQLnlVF5v0VM5YsjjNXH8JkDrcA35IFmlVt0AXdIqPo/udZJEdPib1AYej3SYHQI39PYi0YkIyklMcq6R+7Rt9JkeIkVjDncfZATiSBBlIvo0yTrHJZPILmZJl81h8ltKmj1V2e7F294USe89DgK37DWL9EBsmJXYkvln3gAAk9U7d+FDyREzNfnS6W825du0kQvYoE3zCt3V0pXnVUmIusRJzVGlzzL8Vz8XriO+Uz7Am3Iq/iA/VZ0PDQZxNRrLr7b2XURi/OFyKTdW1OabrwNFwESsvOIrIIIJ8rJstI7wl7xBTcjElSRZBr8V2vFA+14/84Y4WMlZ9ju5LyQcxm/6N5H2DfWJtBRBBEngd3WHcDPCm7qUr5kvyBjeS5nBy4HyVsJtpvO5NY2NlbekI3gJwJB0ZBA3FMWVDPCRFFJFBa8k5ZMfZ3D5ZRVNba9QBkElPJnLM+wCbliqN6zmyyb7YgXS2X5pvOpsSwkxbNtmDSLlGRGWcLGBe2JCl68HSbYMAfmYMx5YN/hJzFAEQKbeyuAt+5oBhMRziqm5L7lz9nMGUhG+yx/74zdo1vlp1tU0G2Riq46U+AFHT1G+VyBj40TlUQt05w6m2DQIcNubqy+H4bqJiH22a5MfZg76Kv3uFkdwX2PQAKZMzIzEZxabLlRzgQrkxJyEBhP1uwnSsL8RTuy+yyAq56/dc1+9B7PX7b8zbxqeGbPbF8zb+U2IQd5l4VItHnvxDeVRL5MmLNixA1rW7t3k0hewMhH2/a9Jlz6xtXD6DAJ6LWdK/PDCakIitdZWEfxRxVJsuxz1/Vv/R5Y01/kVSPHySXEtGH+8+jt/Eu3Ka1sxn6gAAAABJRU5ErkJggg==",
+      "text/latex": [
+       "$\\displaystyle \\left(x + \\pi\\right)^{2}$"
+      ],
+      "text/plain": [
+       "       2\n",
+       "(x + π) "
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "%matplotlib inline\n",
+    "import matplotlib.pyplot as p\n",
+    "\n",
+    "from sympy import *\n",
+    "import scipy as sc\n",
+    "init_printing() # for pretty-printing equations etc\n",
+    "\n",
+    "\n",
+    "x = var('x')\n",
+    "type(x) # check it's class\n",
+    "a, b, c = var(\"a, b, c\")\n",
+    "\n",
+    "MyFun = (pi + x)**2; MyFun"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "1c9fce86-a243-4cf5-991a-f5bb93fc1d9a",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/png": "iVBORw0KGgoAAAANSUhEUgAAAFEAAAAaCAYAAADPELCZAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAD+UlEQVRoBe2Y/1FUMRDHjxsLAKxA6ACkAqEDsQOhAxn/41/sAKxApQOxApUOpAP1OsDP55lk3su9nzy4OfF2JpNks293883uJndrt7e3kxV1I3B6erqO1NsguRX61/BnT7o/X0kEBM4A7Diiwfic8Xfa9jQyV30nAkcAt1+SOmO8BW9nBWIJlY6hUfitTmZtVRPrYOnmEYFG4kv6+XSGGYtmt6ZHJDFk38juCCBtVwgq6cziG3gK/I9kfXP/rRTANgp3Gc8UTukMQ2T36E9cWFYKm4g+PsfPX7QT+NdjfUaHIM7oL+p0Rdv0xS0d5n9BZOIb6At9EZ51CpaBF5w+pz+I/jA2Ktz8AeOryL9rjw6fLS/oiyiLephb5nzWxAN0STBPYjrriAILIRzapx3dwZh+prea36PHTbnhT87vgcRBOzkJrk8c+9h89syKdGbwm7aRf/VQc2xZOqxB74bY0E/kzZoNxilSGAugOrcZ39CPomDnWdlGm8IpghofbbjNyD2uma43LZsT4Psg8XjVV5E/+6wvrbUEp60HhrjKf9Iuab6RBkUS34wi7B02KCheFKyny4Wx/loy2oC9QK5SHoJ+8RCX2gsmyKROEL3hGushRqwDpotXehGx9J+ZW9d0IqUVvIUT9gXQQ04FH16saYIuiHu0DzT36rwIGuQS6PDK9IOJ++5FgqhSnwlzhBHXBNAnRDnlHbel1ZyuB2To3yX+FVlBL6hf6c2WCb03tze6/grMFX0TeH4iiYcH04sEcZM2a5D2RNcxmoe1zhRONnxXsPnOCFc2J21OWK9LpWv4TWlb0RP0C06SZyxAZZB8+sSyY0Tme6noDBODxADqRYLYRhbXSr3EIZV7SqZ0KyFbB9IEvpfZ4Nu5bAwd1rtN+vRmLK87Zs2oLAfIDrzyPP8kztsCK8qkfsrI0J1DHWPybDlYxa3FegVc5BZG2PYQfM6UI9BDyVPQQyz7n683+ey+xaUXCaKh26a8XAtV6skX6eJmahxX5sEIe0ZX3c9TgU0bR04gjNaPtETw68pLWg8DIzHfdy6T5qazgFgrKoQxf0MabQlg5jrqJmIUWm86a2NF8YgJtvTFi8TLIX9R+FqItU8rAlh3+XU+6fjOn79FoNB3kiB69etYHZku73HOG+4pTVmd8K/y4tZjvEgyNQVSgHLKN62f6dkThPseuNFaW89zo87jzz7fRYcAkztS981oHnZGXyyjnWhQgG8e0mf67QaROfY0cHzK9EZ+TstwxoxPbMtIRq949Kby/4mmyjEn0Lug9rbyjwiGKKz81dbH9RiJylr/8mLdR8djknH/gzMyRaJIhJNY+B8Ly3AK7N2L0p+PgzPxD4z5cDCz3m0RAAAAAElFTkSuQmCC",
+      "text/latex": [
+       "$\\displaystyle \\left(a + 2 \\pi\\right)^{2}$"
+      ],
+      "text/plain": [
+       "         2\n",
+       "(a + 2⋅π) "
+      ]
+     },
+     "execution_count": 11,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "MyFun_new = MyFun.subs(x, a+pi); MyFun_new"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "d7fb47e4-217b-4890-8323-d013a8af7b7d",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/png": "iVBORw0KGgoAAAANSUhEUgAAAEQAAAAQCAYAAACvDNlTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAACyklEQVRYCdWXTVITQRSAG8wBEG+AW1co+yzCDRBvIDeQbbZ4A8LOnQVLdrLIQldW5QZyAzE3iN/XNT0105kMyegQfVXPTr//3x7cWSwWYTweH4QQzkHhDfgAnkOfSfifgJgPifeM86xL3M9QshiXGDgdDoe34GQ6nb6C9onzG/f7Loa3pUPMX/E9J+7rLjHsonQB1qpJcZyWOdjJKHprA75G4Pu1FVoEsfOhhb0Wy4KMwB8Y28s07rjvQXeC+gT95r439kecropNFDuDBTHxewyuMvTHwXaObjPFd+Qw2UxlWXqAkbfL5Eix4gF+7WHl7sS4Zr4tP8Eb8AT6R86tAL5dlcs258gYs6vZ1uDJoMkIyhbDxNOXJ4pBd718V17zOz62nF+4+w5MwFVTFvX7+AefxjnnXPn4w7MYgs23IEfgZ9Avqne3JCA3aywIPJO+QaDsOr9VlO7nuOrc320rB7tX8BNba1zVGzyb+53TSQ6ccZo4jdkG33GWW7BUEJiOnsL5KlllH9l8TzUanXGuhMKusjnsS4Bf+9IVQjPoeRylPjxX4LFVMdkyYX4fo5ca7aTU8qkVpHCwz3mMYA6nEOJoJQZyTo0j69q0ArJNCQfoJygecKYgW+0kJvL6tUHVaU3sxhNZp2VeYR5Cq95DWRAYBvaSs+wIv3UqPIAmnydukQJytUJJewIwtiN8538rxfevoDvp1XWyKdUcUn5luLEgKGlE41VlhSxSdaTybjhJcRzRVdYRz2Ug/33Aj01YagT0X9I5y8bqnbsNdcWee08AfQSWdgZcrJJV1ki+jwrHUS6UyopytwAWMhlzNx99S5DvG0xczMFiND3+NjXlEJwQR8hEVcih+hhZ8SuS9pV+AfrZ0thFQcuLCevpgBj0nxpmI22yX5f0NhlrvgFLDdzxf7vbBAJ20jZ+VPuKebcvwxvYnSMr/hPwG4TECzZvLsD2AAAAAElFTkSuQmCC",
+      "text/latex": [
+       "$\\displaystyle 2 a + 4 \\pi$"
+      ],
+      "text/plain": [
+       "2⋅a + 4⋅π"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "diff(MyFun_new, a)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "332e6f94-9e21-4339-b3e9-142adee00cec",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/png": "iVBORw0KGgoAAAANSUhEUgAAAAkAAAAOCAYAAAD9lDaoAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA3UlEQVQoFW2RvRGCQBCFD7UAxhIgNXI0J8AO1BK0BEJItQMMTTU0w4DE1A6gBMYOzu+dg4PIzrzZ27dvf+7Os9aaLMsCY0wCZAvQgAT+KWIMJMghtlEU3cCpLMsZ3Bn/IK5HBAewB1+jQF1f4CJSohhUJHwRHbtz9uEDiRTUBKocMt9o8SGkaVoBUtaN+6um6xxSF3I31rgh08JXxEeX7I9iRA6KLv/TicodlVP8qtt+0gYk1pxD/KbDaa/P4iS06BLffk2rU2HjMV/qAui9+hZTGGqcBBJqn765D34Dzrdx4/BA7EwAAAAASUVORK5CYII=",
+      "text/latex": [
+       "$\\displaystyle 2$"
+      ],
+      "text/plain": [
+       "2"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "diff(MyFun_new, a, a)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "c51a9dd8-e4c7-430f-be70-263aa65313d0",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/png": "iVBORw0KGgoAAAANSUhEUgAAAGsAAAAaCAYAAACwwaJoAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAEkUlEQVRoBe2Z7VHcMBCG724ogJAOoAMIFQQ6CHQQ6CBMfsFf0gFQAYEOIBUkoQPoIBl3QN5HI91IsizL58M4ye2MWHm9kvZb62P6/Pw8WcF4LHB2drYuaT5biTYt/ih6tTYeMVeSWAucyzHHzhqaX2j+U2Nr5ogrPBoLHMlBe54055pvira9cpZnlZFMyaofKVmmqzsrZZbx0JRRZNYH4dcpgzrYXZzjscpAknTRXbzbOEpjB/EGL4MS4JPORYj/Fbh/sEEWrFPJqh3NK5iDMigiRrzxGWByYDc4sc/vhH9rnIj+4HhyWHxEya6w2yPH/qrv+uqaE15746xK+DLF584WNl2hfZ5MT09P6euvNDA8DsBhb8RgvKm5AbvgQnjfo+F5Dt4X/d7RU1jvOeebsEnpFM9YaJKRMr2wriV66Aza8ffCSTvrnR/QOO1kBrPGgQaEa40mwDHG045Ba9iQw8jGNmA93wyDgGTb0zha8LC+upYciy04JwacSOsOdoN2vupyZ7HBoxaRIT6QUeuiE405OBRPMu1zi3q8Q85Y1tLt+uraeo61BTYJZNQzVW0aDzbs4iyc8qRNqgZJgkN9Hq3hrnryaSOfL6xrR72wyWHpmrVSRhn8oIHXdHZ6n2syuOfa7jQyk7KAAr80bjX4vvgiPCh00VW8yEy5bQxWvbsUX3CFWIWwCbYpqjjFzrKbB0gC4CiM7F+GAY99oHFpvK+0D2XHdaEmA0W7E417B0Wbstlu//JIMtR0Fc3dOQQyztrVuNZAX55NgIqvKZAfxYPuRdDLWToBA99KmLboR3C6zRpoLe/Yh08Av1Qyz5Xd2l4vTAh0law477swFWAiTFdMB4nMOOBeuMlJLAGwCcFeBAs7S4KQKQjWVB59ATb0UPkEb0500qDEpQCFjSE83trUygFvDJw50ftU+XkQvURus6c9I9BVNBzhO4PPFxe0ZFisj9kr+kNAEqxFsJCzJBQ1ekN4/s1VdFqaiQs2uM+0LwoQcZTCLIg35YyJ6DQ1/FrgDJjdp+ml1rfqKh6yzA/GbdH856btc0FcWzOrUVoIEgIjbAnPI1NzjJJLZ9K9FkFaA40RO8V0SHofOFF8g4LOL9WVgPF1yNnC1wHdsU0RdHKWhCeCUj8XoVTuUNI9p4B/VyE4GWtKDAbTyK2Ff+lQqqv4MDjZ99UXQvRUafZZmJNZse4xz/w5LoNv7ZtaelqDcclyccadHV1brtxgeOp4AFrDrydkz9wZesbxBIXLKu6C1rsr2Ljng85DnlJdcVSqEWr9XNE6fnozQSncCsZZEg7BABcNN6Lh8Tthd1GS5iiBcDG0HUg7686I11JOr3QO3RTBAi+K8u9t02FpPjR00RVZ40+X0uDC3sk7N6Vw8Kt7imFZNBmebwp+g2xz7FKO1DlkaO8GYynCJDaRfAQ+ybCVeJ0kzZLUlyHSohdH0RJEqLQHY6xANmKTYhgss5BIUUR5ORYuvlSLNfmLGKU/WRX8C6ZE/CEzC3m4n+LmpETOf40HG3SuMoNmFha3UfUqP9COwePSn6aJn+g6V5c/iSjIJo9mOA4AAAAASUVORK5CYII=",
+      "text/latex": [
+       "$\\displaystyle 12 \\left(a + 2 \\pi\\right)^{2}$"
+      ],
+      "text/plain": [
+       "            2\n",
+       "12⋅(a + 2⋅π) "
+      ]
+     },
+     "execution_count": 17,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "diff(MyFun_new**2, a, 2) # same as above"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "id": "e056d52b-80ab-4a30-a6e6-5b099c0e63bc",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/png": "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",
+      "text/latex": [
+       "$\\displaystyle - x \\left(x y \\cos{\\left(x y \\right)} + 2 \\sin{\\left(x y \\right)}\\right)$"
+      ],
+      "text/plain": [
+       "-x⋅(x⋅y⋅cos(x⋅y) + 2⋅sin(x⋅y))"
+      ]
+     },
+     "execution_count": 22,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x, y, z = var(\"x,y,z\")\n",
+    "f = sin(x*y) + cos(y*z)\n",
+    "diff(f, x, 1, y, 2)"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.12.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
