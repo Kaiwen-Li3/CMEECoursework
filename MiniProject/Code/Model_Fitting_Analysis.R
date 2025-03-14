@@ -21,7 +21,6 @@ dataMod$Environment <- ifelse(dataMod$Medium %in% artificial_media, "Artificial"
 #id
 unique_ids <- unique(dataMod$ID_num)
 plot_directory <- "../Results"
-
 #Init counter
 results <- data.frame(Environment = character(), Model = character(), AIC_wins = integer(), BIC_wins = integer())
 
@@ -33,7 +32,6 @@ for(id in unique_ids) {
   #...for each ID
   subset_data <- subset(dataMod, ID_num == id)
   env_type <- unique(subset_data$Environment)  # Get environment type
-  
   # fit Linear Model
   lm_fit <- lm(log_PopBio ~ Time, data = subset_data)
   
@@ -56,7 +54,7 @@ for(id in unique_ids) {
     message(paste("Error fitting Gompertz for ID:", id, ":", e$message))
     return(NULL)
   })
-  ###########################################
+  ################################################################
   ####IF START
   # If Gompertz fit is successful, compare AIC/BIC
   if (!is.null(fit_gomping_time)) {
@@ -65,8 +63,16 @@ for(id in unique_ids) {
     
      #who wins?
     AIC_winner <- ifelse(lm_AIC < gompy_AIC, "Linear", "Gompertz")
+    if (AIC_winner == "Linear") {
+      message(paste("Linear model has better AIC for ID:", id))
+    }
     
+    # BIC comparison
     BIC_winner <- ifelse(lm_BIC < gompy_BIC, "Linear", "Gompertz")
+    if (BIC_winner == "Linear") {
+      message(paste("Linear model has better BIC for ID:", id))
+    }
+    
     
     # storing results
     results <- rbind(results, data.frame(Environment = env_type, Model = AIC_winner, AIC_wins = 1, BIC_wins = 0))
@@ -80,11 +86,19 @@ for(id in unique_ids) {
     
     # create the plot, lm in red, gomp in blue
     plot <- ggplot(subset_data, aes(x = Time, y = log_PopBio)) +
-      geom_point(color = "gray", alpha = 0.75) +  
-      geom_smooth(method = "lm", color = "darkred", linetype = "dashed", se = FALSE) + 
-      geom_line(data = gompertz_df, aes(x = Time, y = log_PopBio), color = "darkblue", size = 1) +  # Gompertz model line
+      geom_point(aes(color = "Data"), alpha = 0.75) +  # Points for raw data
+      geom_smooth(aes(color = "Linear Model"), method = "lm", linetype = "dashed", se = FALSE) + 
+      geom_line(data = gompertz_df, aes(x = Time, y = log_PopBio, color = "Gompertz Model"), size = 1) +  
       theme_minimal() +
-      labs(title = paste("Bacterial Growth for ID: ", id), x = "Time (hours)", y = "Log Population")
+      scale_color_manual(name = "Model",
+                         values = c("Linear Model" = "darkred", "Gompertz Model" = "darkblue")) + 
+      labs(
+        title = paste("Linear model vs gompertz model for bacterial growth (medium : ", subset_data$Medium, ")"),
+        x = "Time (hours)", 
+        y = paste("Log Population (", subset_data$PopBio_units, ")", sep = "")
+      )
+    
+    #plot
     
     # Save plot
     filename <- paste0(plot_directory, "/Bacterial_Growth_Plot_ID_", id, ".pdf")
@@ -97,7 +111,7 @@ for(id in unique_ids) {
   }
   
   ###IF END
-  ###########################################
+  ####################################################################
 }
 #====================================================================================================================================
 #LOOP END
