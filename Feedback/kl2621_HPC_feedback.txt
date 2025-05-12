@@ -1,0 +1,83 @@
+HPC long practical feedback for Kaiwen Li ( Kaiwen Li ) 2025
+ 
+email : kl2621@imperial.ac.uk
+username : kl2621
+ 
+Your final mark is : 62.67 %
+ 
+Mark allocation break down
+1) Technically correct answers to all questions worth 60 % of final grade
+Your mark :  48.1 /60
+2) Quality of free text answers worth 8 % of final grade
+Your mark :  4 /8
+3) Quality of graphical outputs worth 8 % of final grade
+Your mark :  6.6 /10
+4) Quality of code worth 8 % of final grade
+Your mark :  4 /8
+5) Answers to challenge questions worth 16 % of final grade
+Your mark :  0 /14
+ 
+Marks for main questions
+Q 0 :    3 / 3
+Q 1 :    4 / 4
+Q 2 :    3 / 3
+Q 3 :    10 / 10
+Q 4 :    6 / 10    comments: shellscript OK and .e.o files shows this ran on the cluster but no RDA files
+Q 5 :    8 / 8
+Q 6 :    0 / 10    comments: not answered
+Q 7 :    2 / 2
+Q 8 :    1 / 1
+Q 9 :    1 / 1
+Q 10 :    2 / 2
+Q 11 :    2 / 2
+Q 12 :    2 / 2
+Q 13 :    2 / 2
+Q 14 :    1.5 / 3    comments: didn't give a text answer to the question that was asked
+Q 15 :    3 / 3
+Q 16 :    1 / 1
+Q 17 :    1 / 1
+Q 18 :    4 / 4
+Q 19 :    2 / 3    comments: the function works but does not return the abundances in decreasing order as requested by the question
+Q 20 :    3 / 3
+Q 21 :    2 / 2
+Q 22 :    3.5 / 4    comments: excellent answer but the text part isn't quite complete - it doesn't give a reason for why the initial condition doesn't matter.
+Q 23 :    6 / 6
+Q 24 :    6 / 6
+Q 25 :    10 / 10
+Q 26 :    4 / 10    comments: The graph had the right results for the first octaves but the last two octaves were higher than they should be. I suspect the code for recombining and averaging the results is the reason for the error. The cluster results themselves look correct, including for the larger sizes that were not in the plot. Unfortunately there are two charts missing from these results. The code to make the chart didn't run when I tested it because it relied on a variable 'group_means' that must have been kept globally when this was being tested but is not put in the global environment when this is run elsewhere with a clear workspace.
+          ---------
+Total     93 / 116
+          ---------
+ 
+Marks for text quality :  4 /8
+Comments...
+In question 1 well written but could have gone deeper into the 'why' and illustrated more understanding of what's going on
+In question 2 excellent
+In question 5 excellent, clear concise and shows strong understanding of what's going on
+In question 6 not answered
+In question 14 no text answer given
+In question 18 essentially correct and shows understanding and the text is well written but there are some subtleties not quite right the model doesn't exactly cause drift, it incorporates drift as its main process.
+In question 22 good, well written but needed to go deeper into why
+ 
+Marks for graphics quality :  6.6 /10
+Comments...
+In question 1 it would have been excellent but the axes were not properly labelled, they should have given the biological meaning not just X and Y. If I'm being picky I'd say the legend would be nicer without a box but the main thing is the axes
+In question 2 as for the previous graph axes are an issue otherwise good
+In question 5 excellent, if I'm being picky I'd say axes would be better than a grid but that's a very minor comment
+In question 6 not answered
+In question 14 excellent graph
+In question 18 needs a legend and the y axis limits were not correctly set, cutting off part of the data
+In question 22 exemplary - I would say improvements to this graph are near impossible!
+In question 26 unfortunately this graph lacks the completeness of the other octaves graph, it lacks all four required panels and lacks proper octave labels
+ 
+Marks for code quality :  4 /8
+Comments...
+mostly neat and with some comments but there were a few issues including Missing } on process_neutral_cluster_results and pathing issues which needed to be fixed before the code could run. There were also some dependencies on global variable 'group_means' and the .png extension was missing from filenames. Code outputted text into the terminal when sourced, it should have just put the functions into workspace not actually run them.
+ 
+Marks for challenge questions :  0 /14
+Comments...
+challenge question A, not attempted
+challenge question B, not attempted
+challenge question C, not attempted
+challenge question D, not attempted
+challenge question E, not attempted
